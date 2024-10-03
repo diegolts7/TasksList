@@ -16,6 +16,11 @@ app.get("/tasks", async (req, res) => {
 
 app.get("/tasks/:nome", async (req, res) => {
   try {
+    const nome = req.params.nome;
+    const tasksByName = await TaskModel.find({
+      text: { $regex: nome, $options: "i" },
+    });
+    res.status(201).json(tasksByName);
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -32,6 +37,11 @@ app.post("/tasks", async (req, res) => {
 
 app.patch("/tasks/:id", async (req, res) => {
   try {
+    const id = req.params.id;
+    const updatedTask = await TaskModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json(updatedTask);
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -39,6 +49,9 @@ app.patch("/tasks/:id", async (req, res) => {
 
 app.delete("/tasks/:id", async (req, res) => {
   try {
+    const id = req.params.id;
+    const deletedTask = await TaskModel.findByIdAndDelete(id);
+    res.status(200).json(deletedTask);
   } catch (err) {
     res.status(500).send(err.message);
   }
