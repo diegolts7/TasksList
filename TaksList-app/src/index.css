@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 * {
@@ -11,4 +11,5 @@
 body,
 html {
   background: linear-gradient(to right, #1a1a6d, #5a2d91, #8b5cbb);
+  height: 100%;
 }
