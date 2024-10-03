@@ -6,7 +6,7 @@ const DivCentralModalTasks = styled.div`
   min-height: 30vh;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
   color: #1a1a6d;
   display: flex;
   flex-direction: column;

@@ -1,9 +1,11 @@
 const express = require("express");
 const TaskModel = require("../src/models/task.model");
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/tasks", async (req, res) => {
   try {
