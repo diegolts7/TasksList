@@ -37,10 +37,19 @@ const DivInfoFiltro = styled.div`
 `;
 
 const ModalTasks = () => {
-  const { listaTasks, isLoading } = useContext(ContextTask);
+  const { listaTasks, isLoading, FiltrarTasksChecadas, PegaTasks } =
+    useContext(ContextTask);
 
-  function isChecado(){
-    
+  function isChecado(e) {
+    if (e.target.value === "Checked") {
+      FiltrarTasksChecadas(true);
+      return;
+    }
+    if (e.target.value === "Nchecked") {
+      FiltrarTasksChecadas(false);
+      return;
+    }
+    PegaTasks();
   }
 
   return (
@@ -48,9 +57,10 @@ const ModalTasks = () => {
       <CriarTask />
       <DivInfoFiltro>
         <label>Filtrar por:</label>
-        <select onChange={}>
-          <option value="Todos">Todos</option>
-          <option value="Checked">Checados</option>
+        <select onChange={isChecado}>
+          <option value="Todos">Todas as tasks</option>
+          <option value="Checked">Checadas</option>
+          <option value="Nchecked">Não checadas</option>
         </select>
       </DivInfoFiltro>
       <RenderizarTasks lista={listaTasks} isLoading={isLoading} />

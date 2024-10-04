@@ -51,6 +51,13 @@ const TaskContext = ({ children }) => {
     setIsLoading(false);
   }
 
+  async function FiltrarTasksChecadas(tipo) {
+    setIsLoading(true);
+    const tasks = await useRequest.GETWithChecked(tipo);
+    setListaTasks(new Map(tasks.map((task) => [task._id, task])));
+    setIsLoading(false);
+  }
+
   useEffect(() => {
     PegaTasks();
   }, []);
@@ -73,6 +80,7 @@ const TaskContext = ({ children }) => {
         DeletarTask,
         PesquisarTasks,
         AtualizarTask,
+        FiltrarTasksChecadas,
       }}
     >
       {children}

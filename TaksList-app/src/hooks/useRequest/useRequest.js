@@ -17,6 +17,16 @@ const useRequest = {
       console.log(err);
     }
   },
+  GETWithChecked: async (tipo) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5050/tasks/checked/${tipo}`
+      );
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  },
   POST: async (task) => {
     try {
       await axios.post("http://localhost:5050/tasks", task);
