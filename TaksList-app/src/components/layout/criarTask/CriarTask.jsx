@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { IoSearchCircleSharp } from "react-icons/io5";
 import { IoMdAddCircle } from "react-icons/io";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../hooks/useRequest/useRequest";
+import { ContextTask } from "../../../contexts/taskContext/TaskContext";
 
 const FormCriarTask = styled.form`
   display: flex;
@@ -41,51 +42,49 @@ const FormCriarTask = styled.form`
   }
 `;
 
-const CriarTask = ({ setLista }) => {
-  const [isAdd, setIsAdd] = useState(true);
-  const [textTask, setTextTask] = useState("");
-
-  function toggleIsAdd() {
-    setIsAdd((beforeIsAdd) => (beforeIsAdd ? false : true));
-  }
-
-  async function addTask(e) {
-    e.preventDefault();
-    if (textTask.length > 0) {
-      if (isAdd) {
-        useRequest.POST({ text: textTask, checked: false });
-        setTextTask("");
-        setLista(useRequest.GET());
-
-        return;
-      }
-      setLista(useRequest.GETWithName(textTask));
-      return;
-    }
-    setLista(useRequest.GET());
-  }
+const CriarTask = () => {
+  const [textCriarTask, setTextCriarTask] = useState("");
+  const [textPesquisaTask, setTextPesquisaTask] = useState("");
+  const { AdiconaTask, toggleIsAdd, isAdd } = useContext(ContextTask);
 
   return (
-    <FormCriarTask onSubmit={addTask}>
-      <input
-        type="text"
-        placeholder="digite sua task"
-        value={textTask}
-        onChange={(e) => setTextTask(e.target.value)}
-      />
+    <>
       {isAdd ? (
-        <>
-          <button type="submit">Add </button>
-          <button onClick={toggleIsAdd}>
+        <FormCriarTask
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (textCriarTask !== "") {
+              AdiconaTask({ text: textCriarTask, checked: false });
+              setTextCriarTask("");
+            }
+          }}
+        >
+          <input
+            type="text"
+            placeholder="digite sua task"
+            value={textCriarTask}
+            onChange={(e) => setTextCriarTask(e.target.value)}
+          />
+          <button type="submit">Add</button>
+          <button type="button" onClick={toggleIsAdd}>
             <IoSearchCircleSharp />
           </button>
-        </>
+        </FormCriarTask>
       ) : (
-        <button onClick={toggleIsAdd}>
-          <IoMdAddCircle />
-        </button>
+        <FormCriarTask>
+          <input
+            type="text"
+            placeholder="pesquise sua task"
+            value={textPesquisaTask}
+            onChange={(e) => setTextPesquisaTask(e.target.value)}
+          />
+          <button type="submit">Search</button>
+          <button type="button" onClick={toggleIsAdd}>
+            <IoMdAddCircle />
+          </button>
+        </FormCriarTask>
       )}
-    </FormCriarTask>
+    </>
   );
 };
 

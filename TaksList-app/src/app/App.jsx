@@ -1,12 +1,15 @@
 import ModalTasks from "../components/layout/modalTasks/ModalTasks";
+import { TaskContext } from "../contexts/taskContext/TaskContext";
 
 import "./App.css";
 
 function App() {
   return (
-    <div className="conteiner">
-      <ModalTasks />
-    </div>
+    <TaskContext>
+      <div className="conteiner">
+        <ModalTasks />
+      </div>
+    </TaskContext>
   );
 }
 
