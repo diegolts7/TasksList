@@ -28,6 +28,18 @@ app.get("/tasks/:nome", async (req, res) => {
   }
 });
 
+app.get("/tasks/checked/:tipo", async (req, res) => {
+  try {
+    const tipo = req.params.tipo;
+    const tasksByTipo = await TaskModel.find({
+      checked: tipo === "true" ? true : false,
+    });
+    res.status(201).json(tasksByTipo);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 app.post("/tasks", async (req, res) => {
   try {
     const task = await TaskModel.create(req.body);
