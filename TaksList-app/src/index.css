@@ -2,6 +2,20 @@
   font-family: "Lato", sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 3.5px; /* Largura da barra de rolagem */
+}
+
+/* Estilizando a pista (fundo) da barra de rolagem */
+::-webkit-scrollbar-track {
+  background: inherit; /* Cor de fundo da pista */
+}
+
+/* Estilizando o polegar (alça) da barra de rolagem */
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 150, 0.2); /* Cor do polegar */
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
