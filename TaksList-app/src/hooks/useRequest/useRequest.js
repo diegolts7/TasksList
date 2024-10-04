@@ -33,7 +33,7 @@ const useRequest = {
   },
   DELETE: async (id) => {
     try {
-      await axios.patch(`http://localhost:5050/tasks/${id}`);
+      await axios.delete(`http://localhost:5050/tasks/${id}`);
     } catch (err) {
       console.log(err);
     }

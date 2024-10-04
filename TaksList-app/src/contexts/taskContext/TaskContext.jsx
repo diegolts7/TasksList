@@ -25,6 +25,20 @@ const TaskContext = ({ children }) => {
     setIsLoading(false);
   }
 
+  async function DeletarTask(id) {
+    setListaTasks((beforeListaTask) => beforeListaTask.delete(id));
+    await useRequest.DELETE(id);
+  }
+
+  async function AtualizarTask(id, updatedTask) {
+    setListaTasks((beforeListaTask) => {
+      const newListaTasks = new Map(beforeListaTask);
+      newListaTasks.set(id, updatedTask);
+      return newListaTasks;
+    });
+    await useRequest.PATCH(id, updatedTask);
+  }
+
   useEffect(() => {
     PegaTasks();
   }, []);
@@ -38,6 +52,8 @@ const TaskContext = ({ children }) => {
         toggleIsAdd,
         isAdd,
         isLoading,
+        DeletarTask,
+        AtualizarTask,
       }}
     >
       {children}

@@ -15,6 +15,7 @@ const DivLOading = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
   img {
     width: 60px;
   }
@@ -26,7 +27,6 @@ const RenderizarTasks = ({ lista, isLoading }) => {
   useEffect(() => {
     if (lista && lista.size > 0) {
       setListaArray(Array.from(lista.entries()));
-      console.log(listaArray);
     } else {
       setListaArray([]);
     }

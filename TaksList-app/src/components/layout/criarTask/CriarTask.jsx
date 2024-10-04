@@ -61,7 +61,7 @@ const CriarTask = () => {
         >
           <input
             type="text"
-            placeholder="digite sua task"
+            placeholder="Digite sua nova task"
             value={textCriarTask}
             onChange={(e) => setTextCriarTask(e.target.value)}
           />
@@ -74,7 +74,7 @@ const CriarTask = () => {
         <FormCriarTask>
           <input
             type="text"
-            placeholder="pesquise sua task"
+            placeholder="Digite sua pesquisa"
             value={textPesquisaTask}
             onChange={(e) => setTextPesquisaTask(e.target.value)}
           />
