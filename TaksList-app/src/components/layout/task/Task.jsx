@@ -11,7 +11,8 @@ import {
 } from "./StylesTask";
 
 const Task = ({ task }) => {
-  const { DeletarTask, AtualizarTask } = useContext(ContextTask);
+  const { DeletarTask, AtualizarTask, PesquisarTasks } =
+    useContext(ContextTask);
   const [isEdit, setIsEdit] = useState(false);
   const [textAtualizaTask, setTextAtualizaTask] = useState("");
   async function atualizarTexto(e) {

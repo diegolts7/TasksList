@@ -26,7 +26,12 @@ const TaskContext = ({ children }) => {
   }
 
   async function DeletarTask(id) {
-    setListaTasks((beforeListaTask) => beforeListaTask.delete(id));
+    setListaTasks((beforeListaTask) => {
+      const newlista = new Map(beforeListaTask);
+      newlista.delete(id);
+      return newlista;
+    });
+
     await useRequest.DELETE(id);
   }
 
@@ -39,9 +44,22 @@ const TaskContext = ({ children }) => {
     await useRequest.PATCH(id, updatedTask);
   }
 
+  async function PesquisarTasks(texto) {
+    setIsLoading(true);
+    const tasks = await useRequest.GETWithName(texto);
+    setListaTasks(new Map(tasks.map((task) => [task._id, task])));
+    setIsLoading(false);
+  }
+
   useEffect(() => {
     PegaTasks();
   }, []);
+
+  useEffect(() => {
+    if (isAdd) {
+      PegaTasks();
+    }
+  }, [isAdd]);
 
   return (
     <ContextTask.Provider
@@ -53,6 +71,7 @@ const TaskContext = ({ children }) => {
         isAdd,
         isLoading,
         DeletarTask,
+        PesquisarTasks,
         AtualizarTask,
       }}
     >
