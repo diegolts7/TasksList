@@ -3,7 +3,7 @@ import { IoMdAddCircle } from "react-icons/io";
 import { useContext, useState } from "react";
 
 import { ContextTask } from "../../../contexts/taskContext/TaskContext";
-import { FormCriarTask } from "./StylesCriarTask";
+import { FormCriarTask } from "./stylesCriarTask";
 
 const CriarTask = () => {
   const [textCriarTask, setTextCriarTask] = useState("");

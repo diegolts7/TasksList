@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CriarTask from "../criarTask/CriarTask";
 import RenderizarTasks from "../renderizarTasks/RenderizarTasks";
 import { ContextTask } from "../../../contexts/taskContext/TaskContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const DivCentralModalTasks = styled.div`
   background-color: #f8f8f8;
@@ -37,32 +37,22 @@ const DivInfoFiltro = styled.div`
 `;
 
 const ModalTasks = () => {
-  const { listaTasks, isLoading, FiltrarTasksChecadas, PegaTasks } =
+  const { listaTasks, isLoading, checked, isChecado, isAdd } =
     useContext(ContextTask);
-
-  function isChecado(e) {
-    if (e.target.value === "Checked") {
-      FiltrarTasksChecadas(true);
-      return;
-    }
-    if (e.target.value === "Nchecked") {
-      FiltrarTasksChecadas(false);
-      return;
-    }
-    PegaTasks();
-  }
 
   return (
     <DivCentralModalTasks>
       <CriarTask />
-      <DivInfoFiltro>
-        <label>Filtrar por:</label>
-        <select onChange={isChecado}>
-          <option value="Todos">Todas as tasks</option>
-          <option value="Checked">Checadas</option>
-          <option value="Nchecked">Não checadas</option>
-        </select>
-      </DivInfoFiltro>
+      {isAdd && (
+        <DivInfoFiltro>
+          <label>Filtrar por:</label>
+          <select onChange={isChecado} value={checked}>
+            <option value="Todos">Todas as tasks</option>
+            <option value="Checked">Checadas</option>
+            <option value="Nchecked">Não checadas</option>
+          </select>
+        </DivInfoFiltro>
+      )}
       <RenderizarTasks lista={listaTasks} isLoading={isLoading} />
     </DivCentralModalTasks>
   );

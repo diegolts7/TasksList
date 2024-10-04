@@ -7,6 +7,7 @@ const TaskContext = ({ children }) => {
   const [listaTasks, setListaTasks] = useState([]);
   const [isAdd, setIsAdd] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [checked, setChecked] = useState("Todos");
 
   async function AdiconaTask(task) {
     setIsLoading(true);
@@ -58,6 +59,19 @@ const TaskContext = ({ children }) => {
     setIsLoading(false);
   }
 
+  function isChecado(e) {
+    setChecked(e.target.value);
+    if (e.target.value === "Checked") {
+      FiltrarTasksChecadas(true);
+      return;
+    }
+    if (e.target.value === "Nchecked") {
+      FiltrarTasksChecadas(false);
+      return;
+    }
+    PegaTasks();
+  }
+
   useEffect(() => {
     PegaTasks();
   }, []);
@@ -65,6 +79,7 @@ const TaskContext = ({ children }) => {
   useEffect(() => {
     if (isAdd) {
       PegaTasks();
+      setChecked("Todos");
     }
   }, [isAdd]);
 
@@ -81,6 +96,8 @@ const TaskContext = ({ children }) => {
         PesquisarTasks,
         AtualizarTask,
         FiltrarTasksChecadas,
+        checked,
+        isChecado,
       }}
     >
       {children}
